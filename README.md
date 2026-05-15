@@ -1,25 +1,47 @@
-# invoke-apply-luts
-InvokeAI community node for applying 3D .cube LUTs with dropdown selection, strength control, interpolation modes, and alpha preservation.
+# Invoke LUT for InvokeAI
 
-# Invoke LUT
+Standalone InvokeAI 6.x community node for applying 3D `.cube` LUT files.
 
-Invoke LUT is a standalone InvokeAI 6.x community node for applying 3D `.cube` LUTs to images directly inside an InvokeAI workflow.
+This package is independent from the Halftone node. It does not import from, subclass, or share processing code with `halftone_plus`.
 
-The node loads LUT files from a fixed local `luts` folder and exposes them as a dropdown in the workflow editor. It supports smooth trilinear interpolation, nearest-neighbor LUT sampling, adjustable strength, and optional alpha preservation.
+## Node
 
-## Features
+- **Apply LUT**: applies a 3D `.cube` LUT to an input image.
 
-- Standalone InvokeAI custom node
-- Applies 3D `.cube` LUT files
-- Dropdown selection from the local `invoke_lut/luts/` folder
-- Supports LUTs in subfolders
-- Adjustable LUT strength
-- Trilinear or nearest interpolation
-- Optional alpha-channel preservation
+## LUT Folder
 
-## Usage
+Put LUT files in:
 
-Place your `.cube` LUT files in:
+```text
+invoke_lut/luts/
+```
 
-/nodes/invoke_lut/luts/
+`identity.cube` is included as a no-op example LUT. It should not visibly change the image.
 
+The node shows the discovered `.cube` files in the `lut_name` dropdown.
+
+```text
+cinematic.cube
+```
+
+Subfolders are supported:
+
+```text
+film/kodak_2383.cube
+```
+
+The node only resolves files inside this fixed folder. Absolute paths and `..` path escapes are rejected.
+
+InvokeAI reads the dropdown values when the node package is loaded. Restart InvokeAI after adding, removing, or renaming LUT files.
+
+## Controls
+
+- `image`: image to color grade.
+- `lut_name`: dropdown with `.cube` files inside `invoke_lut/luts/`.
+- `strength`: blend amount from `0.0` to `1.0`.
+- `interpolation`: `trilinear` for smooth sampling or `nearest` for hard table steps.
+- `preserve_alpha`: keeps the source alpha channel when present.
+
+## Notes
+
+Only 3D `.cube` LUTs are supported. 1D `.cube` LUTs are rejected with a clear error.
