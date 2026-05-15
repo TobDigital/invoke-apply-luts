@@ -14,7 +14,7 @@ Put LUT files in:
 invoke_lut/luts/
 ```
 
-`identity.cube` is included as a no-op example LUT. It should not visibly change the image.
+A few LUTs have been included as examples.
 
 The node shows the discovered `.cube` files in the `lut_name` dropdown.
 
