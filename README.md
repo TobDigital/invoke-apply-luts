@@ -2,8 +2,6 @@
 
 Standalone InvokeAI 6.x community node for applying 3D `.cube` LUT files.
 
-This package is independent from the Halftone node. It does not import from, subclass, or share processing code with `halftone_plus`.
-
 ## Node
 
 - **Apply LUT**: applies a 3D `.cube` LUT to an input image.
